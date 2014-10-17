@@ -4,7 +4,7 @@ describe('Pin', function() {
 		pin = new Pin;
 	});
 
-	it('should an assigned score', function() {
+	it('should have an assigned score', function() {
 		pin = new Pin(2);
 		expect(pin.score).toEqual(2);
 	});

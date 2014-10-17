@@ -6,3 +6,4 @@ function Pin(score) {
 Pin.prototype.hit = function() {
 	this.isHit = true;
 };
+
