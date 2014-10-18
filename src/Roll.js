@@ -16,8 +16,8 @@ Roll.prototype.score = function() {
 	return total;
 };
 
-Roll.prototype._selectPin = function(i) {
-	return this.pins[i];
+Roll.prototype._selectPin = function(number) {
+	return this.pins[number];
 };
 
 Roll.prototype.isStrike = function() {
