@@ -65,4 +65,19 @@ describe('Frame', function() {
 		frame.addRoll(roll);
 		expect(frame.isSpare()).toBe(false);
 	});
+
+	it('can only add a second roll if the first one was not a strike', function() {
+		strikeUpRoll(roll);
+		roll2 = new Roll;
+		frame.addRoll(roll);
+		expect(function(){frame.addRoll(roll2);}).toThrow("This frame already has a strike");
+	});
+
+	it('can only add a second roll if the sum of two rolls is max of 10', function() {
+		roll.createRoll(9, 1);
+		roll2 = new Roll();
+		roll2.createRoll(5, 1);
+		frame.addRoll(roll);
+		expect(function(){frame.addRoll(roll2);}).toThrow("Invalid roll, the total number of pins cannot be greater than 10");
+	});
 });

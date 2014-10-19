@@ -10,11 +10,10 @@ describe('Bowling', function() {
 		expect(Object.keys(bowling.frames).length).toEqual(10);
 	});
 
-	it('if started, every frame has a number', function() {
-		bowling = new Bowling;
-		bowling.startGame();
-		expect(bowling.frames["frame1"]).toEqual(rolls: []);
-	});
+	// it('if started, every frame has a number', function() {
+	// 	bowling = new Bowling;
+	// 	bowling.startGame();
+	// 	expect(bowling.frames.frame1).toEqual(rolls: []);
+	// });
 
-	
 });

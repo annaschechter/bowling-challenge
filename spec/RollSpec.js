@@ -68,7 +68,7 @@ describe('Roll', function() {
 	});
 
 	it('can add a maximum of 10 pins', function() {
-		expect(function() {roll.createRoll(11, 1)};).toThrow("This roll is already a strike");
+		expect(function(){roll.createRoll(11, 2);}).toThrow("This roll is already a strike");
 	});
 	
 });
