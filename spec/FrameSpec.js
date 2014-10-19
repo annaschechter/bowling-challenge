@@ -20,6 +20,16 @@ describe('Frame', function() {
 		expect(frame.rolls.length).toEqual(0);
 	});
 
+	it('can have a sequence number', function() {	
+		frame = new Frame(2);
+		expect(frame.seqNum).toEqual(2);
+	});
+
+	it('has a default sequence number of null', function() {
+		expect(frame.seqNum).toEqual(null);
+	});
+
+
 	it('can add rolls', function() {
 		frame.addRoll(roll);
 		expect(frame.rolls.length).toEqual(1);
@@ -71,4 +81,5 @@ describe('Frame', function() {
 		frame.addRoll(roll);
 		expect(function(){frame.addRoll(roll2);}).toThrow("Invalid roll, the total number of pins cannot be greater than 10");
 	});
+
 });

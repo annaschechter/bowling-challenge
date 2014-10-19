@@ -1,15 +1,15 @@
-function Frame() {
+function Frame(seqNum) {
 	this.rolls = [];
+	this.seqNum = seqNum || null;
 };
 
 Frame.prototype.addRoll = function(roll) {
 	if(this.rolls.length >= 2) throw("This frame already has two rolls");
-	if(this.hasStrike()) throw("This frame already has a strike");
 	if(this.totalPins() + roll.pins.length > 10) throw("Invalid roll, the total number of pins cannot be greater than 10");
 	if(roll.isStrike()) 
 		{this.rolls.push(roll);
 		 this.rolls.push(new Roll);
-		 return true}
+		 return true};
 	this.rolls.push(roll)		
 };
 

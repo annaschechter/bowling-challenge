@@ -5,7 +5,7 @@ describe('Roll', function() {
 		pin = new Pin;
 	});
 
-	it('should hold a number of pins hit in this throw', function() {
+	it('should hold a number of pins knocked down in this roll', function() {
 		expect(roll.pins.length).toBe(0);
 	});
 
@@ -15,7 +15,7 @@ describe('Roll', function() {
 		expect(roll.pins.length).toEqual(1);
 	});
 
-	it('should only store pins that were hit', function() {
+	it('should only store pins that were knocked down', function() {
 		expect(function(){roll.addPin(pin);}).toThrow("This pin was not knocked down in this roll");
 	});
 
