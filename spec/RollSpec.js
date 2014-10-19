@@ -60,5 +60,15 @@ describe('Roll', function() {
 		strikeUpRoll(roll);
 		expect(roll.isStrike()).toBe(true);
 	});
+
+	it('can add up to 10 pins in one go', function() {
+		roll.createRoll(3, 2);
+		expect(roll.pins.length).toEqual(3);
+		expect(roll.score()).toEqual(3 * 2)
+	});
+
+	it('can add a maximum of 10 pins', function() {
+		expect(function() {roll.createRoll(11, 1)};).toThrow("This roll is already a strike");
+	});
 	
 });

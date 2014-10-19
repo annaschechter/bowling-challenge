@@ -1,9 +1,9 @@
-function Pin(score) {
-	this.score = score || 1;
-	this.isHit = false;
+function Bowling() {
+	this.frames = {};
 };
 
-Pin.prototype.hit = function() {
-	this.isHit = true;
+Bowling.prototype.startGame = function() {
+		for(var i = 1; i <= 10; i++) {
+		this.frames["frame"+i] = new Frame;
+	};
 };
-

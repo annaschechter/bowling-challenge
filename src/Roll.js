@@ -24,3 +24,11 @@ Roll.prototype.isStrike = function() {
 	if(this.pins.length >= 10)return true;
 	else return false; 
 };
+
+Roll.prototype.createRoll = function(pinQty, pinScore) {
+	for(var i = 1; i <= pinQty; i++) {
+		pin = new Pin(pinScore);
+		pin.hit();
+		this.addPin(pin);
+	};
+};
