@@ -25,9 +25,9 @@ Roll.prototype.isStrike = function() {
 	else return false; 
 };
 
-Roll.prototype.createRoll = function(pinQty, pinScore) {
+Roll.prototype.createRoll = function(pinQty) {
 	for(var i = 1; i <= pinQty; i++) {
-		pin = new Pin(pinScore);
+		pin = new Pin;
 		pin.hit();
 		this.addPin(pin);
 	};

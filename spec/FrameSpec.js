@@ -9,18 +9,9 @@ describe('Frame', function() {
 
 	makeSpare = function(frame) {
 		roll1 = new Roll; 
-			for(var i = 1; i < 6; i++){
-				pin = new Pin;
-				pin.hit();
-				roll1.addPin(pin);
-			};
-
+		roll1.createRoll(5);
 		roll2 = new Roll;
-			for(var i = 1; i < 6; i++){
-				pin = new Pin;
-				pin.hit();
-				roll2.addPin(pin);
-			};
+		roll2.createRoll(5);
 		frame.addRoll(roll1);
 		frame.addRoll(roll2);
 	};
@@ -67,16 +58,16 @@ describe('Frame', function() {
 	});
 
 	it('can only add a second roll if the first one was not a strike', function() {
-		strikeUpRoll(roll);
+		roll.createRoll(10);
 		roll2 = new Roll;
 		frame.addRoll(roll);
-		expect(function(){frame.addRoll(roll2);}).toThrow("This frame already has a strike");
+		expect(function(){frame.addRoll(roll2);}).toThrow("This frame already has two rolls");
 	});
 
 	it('can only add a second roll if the sum of two rolls is max of 10', function() {
-		roll.createRoll(9, 1);
+		roll.createRoll(9);
 		roll2 = new Roll();
-		roll2.createRoll(5, 1);
+		roll2.createRoll(5);
 		frame.addRoll(roll);
 		expect(function(){frame.addRoll(roll2);}).toThrow("Invalid roll, the total number of pins cannot be greater than 10");
 	});

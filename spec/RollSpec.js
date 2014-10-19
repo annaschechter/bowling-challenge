@@ -5,14 +5,6 @@ describe('Roll', function() {
 		pin = new Pin;
 	});
 
-	strikeUpRoll = function(roll){
-		for(var i = 1; i < 11; i++){
-			pin = new Pin;
-			pin.hit();
-			roll.addPin(pin);
-		};
-	};
-
 	it('should hold a number of pins hit in this throw', function() {
 		expect(roll.pins.length).toBe(0);
 	});
@@ -28,7 +20,7 @@ describe('Roll', function() {
 	});
 
 	it('should allow to add maximum of 10 pins', function() {
-		strikeUpRoll(roll);
+		roll.createRoll(10);
 		expect(function(){roll.addPin(pin);}).toThrow("This roll is already a strike");
 	})
 
@@ -39,7 +31,7 @@ describe('Roll', function() {
 		});
 
 		it('when 10 one score pins are held', function() {
-			strikeUpRoll(roll);
+			roll.createRoll(10);
 			expect(roll.score()).toEqual(10);
 		});
 
@@ -57,18 +49,18 @@ describe('Roll', function() {
 	});
 
 	it('knows if the roll is a strike', function() {
-		strikeUpRoll(roll);
+		roll.createRoll(10);
 		expect(roll.isStrike()).toBe(true);
 	});
 
 	it('can add up to 10 pins in one go', function() {
-		roll.createRoll(3, 2);
+		roll.createRoll(3);
 		expect(roll.pins.length).toEqual(3);
-		expect(roll.score()).toEqual(3 * 2)
+		expect(roll.score()).toEqual(3)
 	});
 
 	it('can add a maximum of 10 pins', function() {
-		expect(function(){roll.createRoll(11, 2);}).toThrow("This roll is already a strike");
+		expect(function(){roll.createRoll(11);}).toThrow("This roll is already a strike");
 	});
 	
 });
