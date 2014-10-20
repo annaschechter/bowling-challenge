@@ -6,7 +6,6 @@ Bowling.prototype.startGame = function() {
 	for(var i = 1; i <= 10; i++) {
 	this.frames["frame"+i] = new Frame(i);
 	};
-	// this.frames["frame"+10] = new FinalFrame;
 };
 
 Bowling.prototype.accessFrame = function(frameNum) {
@@ -20,7 +19,7 @@ Bowling.prototype.currentFrame = function() {
 	return this.accessFrame(10);
 };
 
-Bowling.prototype.score = function() {
+Bowling.prototype.totalScore = function() {
 	total = 0;
 	for(var i = 1; i <= Object.keys(this.frames).length; i++) {
 		total = total + this.accessFrame(i).score();
@@ -42,19 +41,19 @@ Bowling.prototype._updateGameForFrameOne = function(roll) {
 };
 
 Bowling.prototype._updateGameForFrameTwo = function(roll) {
-	if(this.accessFrame(1).hasStrike()) roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});
-	if(this.accessFrame(1).isSpare() && this.accessFrame(2).rolls.length === 0) roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});
+	if(this.accessFrame(1).hasStrike()) this._doublePinScore(roll);
+	if(this.accessFrame(1).isSpare() && this.accessFrame(2).rolls.length === 0) this._doublePinScore(roll);
 	this.accessFrame(2).addRoll(roll);
 };
 
 Bowling.prototype._updateGameForOtherFrames = function(roll) {
 	var num = this.currentFrame().seqNum;
 	if(this.accessFrame(num - 1).hasStrike() && this.accessFrame(num - 2).hasStrike()) {
-		roll.pins = roll.pins.map(function(pin) {return pin = new Pin(3)});
+		this._triplePinScore(roll);
 	} else if(this.accessFrame(num - 1).hasStrike()) {
-		roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});
+		this._doublePinScore(roll);
 	} else if(this.accessFrame(num-1).isSpare() && this.currentFrame().rolls.length === 0) {
-		roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});	
+		this._doublePinScore(roll);	
 	}; 
 	this.currentFrame().addRoll(roll);
 };
@@ -70,11 +69,11 @@ Bowling.prototype._updateGameForFinalFrame = function(roll) {
 
 Bowling.prototype._finalFrameFirstRoll = function(roll) {
 	if(this.accessFrame(9).hasStrike() && this.accessFrame(8).hasStrike()) {
-		roll.pins = roll.pins.map(function(pin) {return pin = new Pin(3)});
+		this._triplePinScore(roll);
 	} else if(this.accessFrame(9).hasStrike()) {
-		roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});
+		this._doublePinScore(roll);
 	} else if(this.accessFrame(9).isSpare()) {
-		roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});	
+		this._doublePinScore(roll);
 	};
 	this.accessFrame(10).addRoll(roll);
 	return true;
@@ -82,7 +81,7 @@ Bowling.prototype._finalFrameFirstRoll = function(roll) {
 
 Bowling.prototype._finalFrameSecondRoll = function(roll) {
 	if(this.accessFrame(9).hasStrike()) {
-		roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});
+		this._doublePinScore(roll);
 		this.accessFrame(10).addRoll(roll);
 		return true;
 	} else if(this.accessFrame(10).hasStrike()) {
@@ -96,5 +95,14 @@ Bowling.prototype._finalFrameSecondRoll = function(roll) {
 		return "The Game is Over";
 	};
 };
+
+Bowling.prototype._doublePinScore = function(roll) {
+	roll.pins = roll.pins.map(function(pin) {return pin = new Pin(2)});
+};
+
+Bowling.prototype._triplePinScore = function(roll) {
+	roll.pins = roll.pins.map(function(pin) {return pin = new Pin(3)});
+};
+
 
 

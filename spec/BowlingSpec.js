@@ -22,6 +22,14 @@ describe('Bowling', function() {
 		};
 	};
 
+	var playGutterGame = function(bowling){
+		for(var i = 1; i < 21; i++) {
+			rollTest = new Roll;
+			rollTest.createRoll();
+			bowling.updateGame(rollTest);
+		};
+	}
+
 	it('if started, consists of 10 frames', function() {
 		expect(Object.keys(bowling.frames).length).toEqual(10);
 	});
@@ -37,10 +45,10 @@ describe('Bowling', function() {
 	});
 
 	it('knows the total score for the game', function() {
-		expect(bowling.score()).toEqual(0);
+		expect(bowling.totalScore()).toEqual(0);
 		roll.createRoll(5);
 		bowling.currentFrame().addRoll(roll);
-		expect(bowling.score()).toEqual(5);
+		expect(bowling.totalScore()).toEqual(5);
 	});
 
 	describe('can add bonus score', function() {
@@ -81,7 +89,7 @@ describe('Bowling', function() {
 			bowling.updateGame(roll4);
 			bowling.updateGame(roll5);
 			expect(bowling.accessFrame(3).score()).toEqual(15);
-			expect(bowling.score()).toEqual(45);
+			expect(bowling.totalScore()).toEqual(45);
 		});
 	});
 
@@ -127,6 +135,11 @@ describe('Bowling', function() {
 
 	it('perfect game score is equal to 300', function() {
 		playPerfectGame(bowling);
-		expect(bowling.score()).toEqual(300);
-	})
+		expect(bowling.totalScore()).toEqual(300);
+	});
+
+	it('gutter game score is equal to 0', function() {
+		playGutterGame(bowling);
+		expect(bowling.totalScore()).toEqual(0);
+	});
 });
