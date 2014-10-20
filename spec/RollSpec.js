@@ -11,17 +11,17 @@ describe('Roll', function() {
 
 	it('can add pins', function() {
 		pin.hit();
-		roll.addPin(pin);
+		roll._addPin(pin);
 		expect(roll.pins.length).toEqual(1);
 	});
 
 	it('should only store pins that were knocked down', function() {
-		expect(function(){roll.addPin(pin);}).toThrow("This pin was not knocked down in this roll");
+		expect(function(){roll._addPin(pin);}).toThrow("This pin was not knocked down in this roll");
 	});
 
 	it('should allow to add maximum of 10 pins', function() {
 		roll.createRoll(10);
-		expect(function(){roll.addPin(pin);}).toThrow("This roll is already a strike");
+		expect(function(){roll._addPin(pin);}).toThrow("This roll is already a strike");
 	})
 
 	describe('should know the total score of pins held', function() {
@@ -38,7 +38,7 @@ describe('Roll', function() {
 		it('when one two score pin is held', function() {
 			pin = new Pin(2);
 			pin.hit();
-			roll.addPin(pin);
+			roll._addPin(pin);
 			expect(roll.score()).toEqual(2);
 		});
 

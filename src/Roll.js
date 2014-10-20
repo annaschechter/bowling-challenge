@@ -7,7 +7,7 @@ Roll.prototype.createRoll = function(pinQty) {
 	for(var i = 1; i <= pinQty; i++) {
 		pin = new Pin;
 		pin.hit();
-		this.addPin(pin);
+		this._addPin(pin);
 	};
 };
 
@@ -24,7 +24,7 @@ Roll.prototype.isStrike = function() {
 	else return false; 
 };
 
-Roll.prototype.addPin = function(pin) {
+Roll.prototype._addPin = function(pin) {
 	if(!pin.isHit) throw("This pin was not knocked down in this roll");
 	if(this.pins.length >= 10) throw("This roll is already a strike");
 	this.pins.push(pin);

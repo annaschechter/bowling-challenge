@@ -25,8 +25,8 @@ describe('Frame', function() {
 		expect(frame.seqNum).toEqual(2);
 	});
 
-	it('has a default sequence number of null', function() {
-		expect(frame.seqNum).toEqual(null);
+	it('has a default sequence number of zero', function() {
+		expect(frame.seqNum).toEqual(0);
 	});
 
 
@@ -42,18 +42,15 @@ describe('Frame', function() {
 	});
 
 	it('knows the total score of all the rolls in this frame', function() {
-		pinDouble = new Pin(2);
-		pinDouble.hit();
-		roll.addPin(pin);
-		roll.addPin(pinDouble);
+		roll.createRoll(3);
 		frame.addRoll(roll);
 		expect(frame.score()).toEqual(3);
 	});
 
 	it('total number of pins knocked down in this frame', function() {
-		roll.addPin(pin);
+		roll.createRoll(4);
 		frame.addRoll(roll);
-		expect(frame.totalPins()).toEqual(1);
+		expect(frame.totalPins()).toEqual(4);
 	});
 
 	it('knows if it is a spare', function() {
@@ -62,7 +59,7 @@ describe('Frame', function() {
 	})
 
 	it('knows if it is not a spare', function() {
-		roll.addPin(pin);
+		roll.createRoll(1);
 		frame.addRoll(roll);
 		expect(frame.isSpare()).toBe(false);
 	});
@@ -80,6 +77,17 @@ describe('Frame', function() {
 		roll2.createRoll(5);
 		frame.addRoll(roll);
 		expect(function(){frame.addRoll(roll2);}).toThrow("Invalid roll, the total number of pins cannot be greater than 10");
+	});
+
+	describe('FinalFrame', function() {
+
+		it('is just like a normal frame but it can have a maximum of 3 rolls', function() {
+			frame10 = new Frame(10); 
+			frame10.addRoll(new Roll);
+			frame10.addRoll(new Roll);
+			frame10.addRoll(new Roll);
+			expect(function(){frame10.addRoll(roll);}).toThrow("This frame already has three rolls");
+		});
 	});
 
 });
