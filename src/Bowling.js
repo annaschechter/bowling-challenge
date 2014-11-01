@@ -73,41 +73,29 @@ Bowling.prototype._twoFramesBack = function() {
 };
 
 Bowling.prototype._updateGameForFinalFrameWith = function(roll) {
-	if(this.accessFrame(10).totalRolls() === 0) return this._finalFrameFirstRoll(roll);
-	if(this.accessFrame(10).totalRolls() === 1) return this._finalFrameSecondRoll(roll);
+	if(this.accessFrame(10).totalRolls() === 0) return this._finalFrameFirstRollUpdateWith(roll);
+	if(this.accessFrame(10).totalRolls() === 1) return this._finalFrameSecondRollUpdateWith(roll);
 	if(this.accessFrame(10).totalRolls() === 2) {
 		this.accessFrame(10).addRoll(roll);
 		return "The Game is Over";
 	};
 };
 
-Bowling.prototype._finalFrameFirstRoll = function(roll) {
-	if(this.accessFrame(9).hasStrike() && this.accessFrame(8).hasStrike()) {
-		this._triplePinScore(roll);
-	} else if(this.accessFrame(9).hasStrike()) {
-		this._doublePinScore(roll);
-	} else if(this.accessFrame(9).isSpare()) {
-		this._doublePinScore(roll);
-	};
+Bowling.prototype._finalFrameFirstRollUpdateWith = function(roll) {
+	if(this._previousFrame().hasStrike() && this._twoFramesBack().hasStrike()) this._triplePinScore(roll);
+	else if(this._previousFrame().hasStrike()) this._doublePinScore(roll);
+	else if(this._previousFrame().isSpare()) this._doublePinScore(roll);
 	this.accessFrame(10).addRoll(roll);
 	return true;
 };
 
-Bowling.prototype._finalFrameSecondRoll = function(roll) {
-	if(this.accessFrame(9).hasStrike()) {
-		this._doublePinScore(roll);
-		this.accessFrame(10).addRoll(roll);
-		return true;
-	} else if(this.accessFrame(10).hasStrike()) {
-		this.accessFrame(10).addRoll(roll);
-		return true;
-	}else if((this.accessFrame(10).totalPins() + roll.pins.length) === 10) {
-		this.accessFrame(10).addRoll(roll);
-		return true;
-	} else {
+Bowling.prototype._finalFrameSecondRollUpdateWith = function(roll) {
+	if(!this.accessFrame(10).hasStrike() && !this.accessFrame(10).isSpare()) {
 		this.accessFrame(10).addRoll(roll);
 		return "The Game is Over";
 	};
+	if(this._previousFrame().hasStrike()) this._doublePinScore(roll);
+	this.accessFrame(10).addRoll(roll);
 };
 
 Bowling.prototype._doublePinScore = function(roll) {
