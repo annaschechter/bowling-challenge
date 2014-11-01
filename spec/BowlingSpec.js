@@ -2,7 +2,7 @@ describe('Bowling', function() {
 
 	beforeEach(function() {
 		bowling = new Bowling;
-		bowling.startGame();
+		bowling.startGame(Frame);
 		roll = new Roll;
 	});
 
