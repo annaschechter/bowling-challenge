@@ -17,7 +17,7 @@ describe('Frame', function() {
 	};
 
 	it('should consist of a number of rolls', function() {
-		expect(frame.rolls.length).toEqual(0);
+		expect(frame.totalRolls()).toEqual(0);
 	});
 
 	it('can have a sequence number', function() {	
@@ -32,7 +32,7 @@ describe('Frame', function() {
 
 	it('can add rolls', function() {
 		frame.addRoll(roll);
-		expect(frame.rolls.length).toEqual(1);
+		expect(frame.totalRolls()).toEqual(1);
 	});
 
 	it('knows the total score of all the rolls in this frame', function() {
@@ -61,7 +61,7 @@ describe('Frame', function() {
 	it('knows to add two rolls if the roll is a strike', function() {
 		roll.createRoll(10);
 		frame.addRoll(roll);
-		expect(frame.rolls.length).toEqual(2);
+		expect(frame.totalRolls()).toEqual(2);
 	});
 
 });

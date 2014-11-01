@@ -11,7 +11,7 @@ Frame.prototype.addRoll = function(roll) {
 
 Frame.prototype.score = function() {
 	var total = 0;
-	for(var i = 1; i <= this.rolls.length; i++) {
+	for(var i = 1; i <= this.totalRolls(); i++) {
 		total = total + this._selectRoll(i).score();
 	};
 	return total;
@@ -22,16 +22,20 @@ Frame.prototype.isSpare = function() {
 };
 
 Frame.prototype.hasStrike = function() {
-	if(this.rolls.length === 0) return false;
+	if(this.totalRolls() === 0) return false;
 	return (this._selectRoll(1).isStrike());
 };
 
 Frame.prototype.totalPins = function() {
 	var total = 0;
-	for(var i = 1; i <= this.rolls.length; i++) {
+	for(var i = 1; i <= this.totalRolls(); i++) {
 		total = total + this._selectRoll(i).pins.length;
 	};
 	return total;
+};
+
+Frame.prototype.totalRolls = function() {
+	return (this.rolls.length);
 };
 
 Frame.prototype._isFinalFrame = function() {

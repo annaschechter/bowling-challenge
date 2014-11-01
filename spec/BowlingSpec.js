@@ -10,7 +10,7 @@ describe('Bowling', function() {
 		for(var i = 1; i < 19; i++){
 			rollTest = new Roll;
 			rollTest.createRoll(4);
-			bowling.updateGame(rollTest);
+			bowling.updateGameWith(rollTest);
 		};
 	};
 
@@ -18,7 +18,7 @@ describe('Bowling', function() {
 		for(var i = 1; i < 13; i++) {
 			rollTest = new Roll;
 			rollTest.createRoll(10);
-			bowling.updateGame(rollTest);
+			bowling.updateGameWith(rollTest);
 		};
 	};
 
@@ -26,7 +26,7 @@ describe('Bowling', function() {
 		for(var i = 1; i < 21; i++) {
 			rollTest = new Roll;
 			rollTest.createRoll();
-			bowling.updateGame(rollTest);
+			bowling.updateGameWith(rollTest);
 		};
 	}
 
@@ -63,9 +63,9 @@ describe('Bowling', function() {
 		});
 
 		it('for a strike', function() {
-			bowling.updateGame(roll1);
-			bowling.updateGame(roll2);
-			bowling.updateGame(roll3);
+			bowling.updateGameWith(roll1);
+			bowling.updateGameWith(roll2);
+			bowling.updateGameWith(roll3);
 			expect(bowling.accessFrame(2).score()).toEqual(12);
 		});
 
@@ -73,10 +73,10 @@ describe('Bowling', function() {
 			roll.createRoll(6);
 			roll4 = new Roll;
 			roll4.createRoll(4);
-			bowling.updateGame(roll);
-			bowling.updateGame(roll2);
-			bowling.updateGame(roll3);
-			bowling.updateGame(roll4);
+			bowling.updateGameWith(roll);
+			bowling.updateGameWith(roll2);
+			bowling.updateGameWith(roll3);
+			bowling.updateGameWith(roll4);
 			expect(bowling.accessFrame(2).score()).toEqual(8);
 		});
 
@@ -85,9 +85,9 @@ describe('Bowling', function() {
 			roll5 = new Roll;
 			roll4.createRoll(10);
 			roll5.createRoll(5);
-			bowling.updateGame(roll1);
-			bowling.updateGame(roll4);
-			bowling.updateGame(roll5);
+			bowling.updateGameWith(roll1);
+			bowling.updateGameWith(roll4);
+			bowling.updateGameWith(roll5);
 			expect(bowling.accessFrame(3).score()).toEqual(15);
 			expect(bowling.totalScore()).toEqual(45);
 		});
@@ -101,8 +101,8 @@ describe('Bowling', function() {
 			roll33 = new Roll;
 			roll22.createRoll(5);
 			roll33.createRoll(2);
-			bowling.updateGame(roll22);
-			expect(bowling.updateGame(roll33)).toEqual("The Game is Over");
+			bowling.updateGameWith(roll22);
+			expect(bowling.updateGameWith(roll33)).toEqual("The Game is Over");
 
 		});
 
@@ -114,9 +114,9 @@ describe('Bowling', function() {
 			roll22.createRoll(10);
 			roll33.createRoll(2);
 			roll44.createRoll(8);
-			bowling.updateGame(roll22);
-			bowling.updateGame(roll33);
-			expect(bowling.updateGame(roll44)).toEqual("The Game is Over");
+			bowling.updateGameWith(roll22);
+			bowling.updateGameWith(roll33);
+			expect(bowling.updateGameWith(roll44)).toEqual("The Game is Over");
 		});
 
 		it('if the final frame has a spare', function() {
@@ -127,9 +127,9 @@ describe('Bowling', function() {
 			roll22.createRoll(5);
 			roll33.createRoll(5);
 			roll44.createRoll(8);
-			bowling.updateGame(roll22);
-			bowling.updateGame(roll33);
-			expect(bowling.updateGame(roll44)).toEqual("The Game is Over");
+			bowling.updateGameWith(roll22);
+			bowling.updateGameWith(roll33);
+			expect(bowling.updateGameWith(roll44)).toEqual("The Game is Over");
 		});
 	});
 
