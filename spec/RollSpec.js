@@ -5,7 +5,7 @@ describe('Roll', function() {
 		pin = new Pin;
 	});
 
-	it('should hold a number of pins knocked down in this roll', function() {
+	it('can hold a number of pins knocked down in this roll', function() {
 		expect(roll.pins.length).toBe(0);
 	});
 
@@ -15,27 +15,18 @@ describe('Roll', function() {
 		expect(roll.pins.length).toEqual(1);
 	});
 
-	it('should only store pins that were knocked down', function() {
-		expect(function(){roll._addPin(pin);}).toThrow("This pin was not knocked down in this roll");
-	});
-
-	it('should allow to add maximum of 10 pins', function() {
-		roll.createRoll(10);
-		expect(function(){roll._addPin(pin);}).toThrow("This roll is already a strike");
-	})
-
 	describe('should know the total score of pins held', function() {
 
 		it('when no pins are held', function() {
 			expect(roll.score()).toEqual(0);
 		});
 
-		it('when 10 one score pins are held', function() {
+		it('when 10, one score pins are held', function() {
 			roll.createRoll(10);
 			expect(roll.score()).toEqual(10);
 		});
 
-		it('when one two score pin is held', function() {
+		it('when one, two score pin is held', function() {
 			pin = new Pin(2);
 			pin.hit();
 			roll._addPin(pin);
@@ -53,14 +44,10 @@ describe('Roll', function() {
 		expect(roll.isStrike()).toBe(true);
 	});
 
-	it('can add up to 10 pins in one go', function() {
+	it('can add multiple pins in one go', function() {
 		roll.createRoll(3);
 		expect(roll.pins.length).toEqual(3);
 		expect(roll.score()).toEqual(3)
-	});
-
-	it('can add a maximum of 10 pins', function() {
-		expect(function(){roll.createRoll(11);}).toThrow("This roll is already a strike");
 	});
 	
 });

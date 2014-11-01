@@ -4,19 +4,14 @@ function Frame(seqNum) {
 };
 
 Frame.prototype.addRoll = function(roll) {
-	if(this.seqNum === 10) return this._addRollFinalFrame(roll);
-	if(this.rolls.length >= 2) throw("This frame already has two rolls");
-	if(this.totalPins() + roll.pins.length > 10) throw("Invalid roll, the total number of pins cannot be greater than 10");
+	if (this.seqNum == 10) {
+		this.rolls.push(roll);
+		return true};
 	if(roll.isStrike()) 
 		{this.rolls.push(roll);
 		 this.rolls.push(new Roll);
 		 return true};
 	this.rolls.push(roll)	
-};
-
-Frame.prototype._addRollFinalFrame = function(roll) {
-	if(this.rolls.length >= 3) throw("This frame already has three rolls");
-	this.rolls.push(roll);
 };
 
 Frame.prototype.score = function() {

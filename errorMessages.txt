@@ -1,0 +1,11 @@
+Error messages to keep in mind when building the front end :
+
+Rolls:
+- if(this.pins.length !== 0) throw("This roll has already been played")
+- if(!pin.isHit) throw("This pin was not knocked down in this roll");
+- if(this.pins.length >= 10) throw("This roll is already a strike");
+Frames:
+- if(this.rolls.length >= 2) throw("This frame already has two rolls");
+- if(this.totalPins() + roll.pins.length > 10) throw("Invalid roll, the total number of pins cannot be greater than 10")
+Final Frame:
+- if(this.rolls.length >= 3) throw("This frame already has three rolls");

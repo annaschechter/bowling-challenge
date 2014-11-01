@@ -10,9 +10,9 @@ describe('Frame', function() {
 	makeSpare = function(frame) {
 		roll1 = new Roll; 
 		roll1.createRoll(5);
+		frame.addRoll(roll1);
 		roll2 = new Roll;
 		roll2.createRoll(5);
-		frame.addRoll(roll1);
 		frame.addRoll(roll2);
 	};
 
@@ -33,12 +33,6 @@ describe('Frame', function() {
 	it('can add rolls', function() {
 		frame.addRoll(roll);
 		expect(frame.rolls.length).toEqual(1);
-	});
-
-	it('can have a maximum of two rolls', function() {
-		frame.addRoll(new Roll);
-		frame.addRoll(new Roll);
-		expect(function(){frame.addRoll(roll);}).toThrow("This frame already has two rolls");
 	});
 
 	it('knows the total score of all the rolls in this frame', function() {
@@ -64,30 +58,10 @@ describe('Frame', function() {
 		expect(frame.isSpare()).toBe(false);
 	});
 
-	it('can only add a second roll if the first one was not a strike', function() {
+	it('knows to add two rolls if the roll is a strike', function() {
 		roll.createRoll(10);
-		roll2 = new Roll;
 		frame.addRoll(roll);
-		expect(function(){frame.addRoll(roll2);}).toThrow("This frame already has two rolls");
-	});
-
-	it('can only add a second roll if the sum of two rolls is max of 10', function() {
-		roll.createRoll(9);
-		roll2 = new Roll();
-		roll2.createRoll(5);
-		frame.addRoll(roll);
-		expect(function(){frame.addRoll(roll2);}).toThrow("Invalid roll, the total number of pins cannot be greater than 10");
-	});
-
-	describe('FinalFrame', function() {
-
-		it('is just like a normal frame but it can have a maximum of 3 rolls', function() {
-			frame10 = new Frame(10); 
-			frame10.addRoll(new Roll);
-			frame10.addRoll(new Roll);
-			frame10.addRoll(new Roll);
-			expect(function(){frame10.addRoll(roll);}).toThrow("This frame already has three rolls");
-		});
+		expect(frame.rolls.length).toEqual(2);
 	});
 
 });
